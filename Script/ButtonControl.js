@@ -6,6 +6,7 @@ cc.Class({
     properties: {
         netModeSelect_singleButton: cc.Button,
         netModeSelect_multipleButton: cc.Button,
+        mainGame_chicken: cc.Sprite,
     },
 
     netModeSelect_single: function(){
