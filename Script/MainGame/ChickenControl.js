@@ -20,9 +20,13 @@ cc.Class({
             this.parentControl.updateScore();
             this.node.active = false;
 
-            this.changeMusic(event)
+            this.changeMusic(event);
 
-            this.removeFromParent();
+            event.stopPropagation()
+            
+            cc.audioEngine.play(this.parentControl.ak47, false, this.parentControl.slider.progress*0.5);
+
+            this.node.removeFromParent();
         },this);
     },
 
@@ -53,6 +57,6 @@ cc.Class({
     changeMusic: function(event){
         var dist = Math.sqrt( (event._x - this.node.x - 480)*(event._x - this.node.x - 480) + 
             (event._y - this.node.y - 320)*(event._y - this.node.y - 320) );
-        this.parentControl.changeSlider(dist);
+        this.parentControl.changeSlider(dist,this.node.x,this.node.y);
     }
 });

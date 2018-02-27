@@ -8,6 +8,12 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
+        bloodPrefab: {
+            default: null,
+            type: cc.Prefab
+        },
+        ak47: cc.AudioClip,
+        blood: cc.Sprite,
         slider: cc.Slider,
         MusicControl: cc.Node,
         interval: 1,
@@ -16,8 +22,15 @@ cc.Class({
     onLoad() {
         cc._canvas.style.cursor = 'none';
         this.changePointer();//修改指针样式
+
+        this.node.on(cc.Node.EventType.MOUSE_DOWN,function (event) {//枪声
+            cc.audioEngine.play(this.ak47, false, this.slider.progress*0.5);
+            this.blood.node.opacity = 100; //打中空地飘红血
+            this._score--;//打中空地降一分  
+            this.updateScore();     
+        },this);
     
-        this._time = 0;
+        this._time = -5;//6秒后游戏开始
         this._chicken = new Array();
         this._chickenNum = 0;
 
@@ -63,6 +76,8 @@ cc.Class({
                 this.failed();
             }
         }
+
+        if (this.blood.node.opacity > 1) this.blood.node.opacity -= 1;//血量图透明度降低
     },
 
     updateScore: function(){
@@ -98,7 +113,7 @@ cc.Class({
         this.MusicControl.getComponent("MusicControl").changeVolume(0);//关掉音乐
     },
 
-    changeSlider: function(dist){
+    changeSlider: function(dist,tarx,tary){
         //volume=1/dist,当dist<1时设为1
         if(dist>100) 
             dist = 100;
@@ -107,5 +122,18 @@ cc.Class({
 
         this.slider.progress = volume;
         this.MusicControl.getComponent("MusicControl").changeVolume(volume);
+
+        this.changeBlood(volume,tarx,tary);
+    },
+
+    changeBlood: function(volume,tarx,tary){
+        var newBlood = cc.instantiate(this.bloodPrefab);
+        this.node.addChild(newBlood);
+        newBlood.setPosition(cc.p(tarx,tary));
+        newBlood.setLocalZOrder(10);
+
+        this.scheduleOnce(function() {
+            newBlood.removeFromParent();
+        },2);
     }
 });
