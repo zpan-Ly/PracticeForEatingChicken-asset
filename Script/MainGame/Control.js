@@ -45,7 +45,7 @@ cc.Class({
     },
 
     getNewchickenPosition: function(){
-        return cc.p(Math.random()*900-450,Math.random()*580-290);
+        return cc.p(Math.random()*960-480,Math.random()*520-260);
     },
 
     update: function(dt){
