@@ -17,14 +17,16 @@ cc.Class({
             if(this._paused) return;
 
             this.parentControl._score++;
+
             this.parentControl.updateScore();
-            this.node.active = false;
 
             this.changeMusic(event);
 
             event.stopPropagation()
             
             cc.audioEngine.play(this.parentControl.ak47, false, this.parentControl.slider.progress*0.5);
+
+            this.node.active = false;
 
             this.node.removeFromParent();
         },this);

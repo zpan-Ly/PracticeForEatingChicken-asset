@@ -2,8 +2,14 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        failedLable: cc.Label,
-        crosschair: cc.Sprite,
+        failedLable: {
+            default: null,
+            type: cc.Label,
+        },
+        crosschair: {
+            default: null,
+            type: cc.Sprite,
+        },
         chickenPrefab: {
             default: null,
             type: cc.Prefab
@@ -12,24 +18,31 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
-        ak47: cc.AudioClip,
-        blood: cc.Sprite,
-        slider: cc.Slider,
-        MusicControl: cc.Node,
+        ak47: {
+            default: null,
+            url: cc.AudioClip,
+        },
+        blood: {
+            default: null,
+            type: cc.Sprite,
+        },
+        slider: {
+            default: null,
+            type: cc.Slider,
+        },
+        MusicControl: {
+            default: null,  
+            type: cc.Node,
+        },
         interval: 1,
     },
 
     onLoad() {
-        cc._canvas.style.cursor = 'none';
+        if(cc.sys.isBrowser){
+            cc._canvas.style.cursor = 'none';//浏览器运行下隐藏鼠标，windows下不能使用这个方法。
+        }
         this.changePointer();//修改指针样式
 
-        this.node.on(cc.Node.EventType.MOUSE_DOWN,function (event) {//枪声
-            cc.audioEngine.play(this.ak47, false, this.slider.progress*0.5);
-            this.blood.node.opacity = 100; //打中空地飘红血
-            this._score--;//打中空地降一分  
-            this.updateScore();     
-        },this);
-    
         this._time = -5;//6秒后游戏开始
         this._chicken = new Array();
         this._chickenNum = 0;
@@ -37,6 +50,13 @@ cc.Class({
         this._gameOver = false;
         
         this._score = 0;
+
+        this.node.on(cc.Node.EventType.MOUSE_DOWN,function (event) {//枪声
+            cc.audioEngine.play(this.ak47, false, this.slider.progress*0.5);
+            this.blood.node.opacity = 100; //打中空地飘红血
+            this._score--;//打中空地降一分  
+            this.updateScore();     
+        },this);
     },
 
     changePointer: function(){
