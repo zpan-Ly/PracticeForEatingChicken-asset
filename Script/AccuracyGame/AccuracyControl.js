@@ -56,7 +56,8 @@ cc.Class({
         },this);
 
         this.chicken.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
-            if(this._gameOver == true) return;
+            if(this._gameOver == true
+            || this.chicken.node.opacity<5) return;
 
             this._score++;
 
@@ -140,15 +141,15 @@ cc.Class({
 
             var rank = new Array(-15,-5,8,15);
             if(this._score<rank[0]){
-                this.remainderLable.getComponent(cc.Label).string = "你输了，你这个菜鸡！";
+                this.remainderLable.getComponent(cc.Label).string = "你输了，你这个菜鸡！\n不要轻易开枪";
             }else if(this._score<rank[1]){
-                this.remainderLable.getComponent(cc.Label).string = "你输了，继续努力！";
+                this.remainderLable.getComponent(cc.Label).string = "你输了，继续努力！\n一枪未中的后果是很严重的";
             }else if(this._score<rank[2]){
-                this.remainderLable.getComponent(cc.Label).string = "虽败犹荣";
+                this.remainderLable.getComponent(cc.Label).string = "虽败犹荣\n迅捷！准确！";
             }else if(this._score<rank[3]){
-                this.remainderLable.getComponent(cc.Label).string = "接近大神";
+                this.remainderLable.getComponent(cc.Label).string = "接近大神中";
             }else{
-                this.remainderLable.getComponent(cc.Label).string = "不说了，收下我的膝盖！";
+                this.remainderLable.getComponent(cc.Label).string = "请收下我的膝盖！";
             }
 
             this.remainderLable.node.setPosition(cc.p(0,0));

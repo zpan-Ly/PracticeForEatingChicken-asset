@@ -2,10 +2,12 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        decrese: 0,
+        decrese: 3,
     },
 
     onLoad() {
+        this.decrese = 5;
+
         this.addTouchEvent();
         this._isBiger = true;
         this.node.scale = 0;

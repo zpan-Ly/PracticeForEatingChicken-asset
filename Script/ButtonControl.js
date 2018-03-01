@@ -33,12 +33,12 @@ cc.Class({
     },
 
     gameModeSelect_training2: function(){
-        cc.director.loadScene("MainGame.fire");
+        cc.director.loadScene("ReactionTest.fire");
         Global.gameMode = 2;
     },
 
     gameModeSelect_reactionTest: function(){
-        cc.director.loadScene("MainGame.fire");
+        cc.director.loadScene("ReactionTest.fire");
         Global.gameMode = 3;
     },
 
