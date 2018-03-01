@@ -4,8 +4,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        netModeSelect_singleButton: cc.Button,
-        netModeSelect_multipleButton: cc.Button,
     },
 
     netModeSelect_single: function(){
@@ -24,17 +22,13 @@ cc.Class({
         cc.director.loadScene("NetModeSelect.fire")
     },
 
-    gameModeSelect_again: function(){
-        cc.director.loadScene("MainGame.fire")
-    },
-
     gameModeSelect_professional: function(){
         cc.director.loadScene("MainGame.fire");
         Global.gameMode = 0;
     },
 
     gameModeSelect_training1: function(){
-        cc.director.loadScene("MainGame.fire");
+        cc.director.loadScene("AccuracyGame.fire");
         Global.gameMode = 1;
     },
 
@@ -54,7 +48,20 @@ cc.Class({
     },
 //***********************************************************************
     mainGame_return: function(){
-        cc.director.loadScene("GameModeSelect.fire")
+        cc.director.loadScene("GameModeSelect.fire");
         cc._canvas.style.cursor = 'auto';//恢复指针样式
+    },
+
+    mainGame_reset: function(){
+        cc.director.loadScene("MainGame.fire");
+    },
+//***********************************************************************
+    accuracyGame_return: function(){
+        cc.director.loadScene("GameModeSelect.fire");
+        cc._canvas.style.cursor = 'auto';//恢复指针样式
+    },
+    
+    accuracyGame_reset: function(){
+        cc.director.loadScene("AccuracyGame.fire");
     }
 });

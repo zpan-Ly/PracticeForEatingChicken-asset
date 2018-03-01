@@ -46,9 +46,7 @@ cc.Class({
         this._time = -5;//6秒后游戏开始
         this._chicken = new Array();
         this._chickenNum = 0;
-
         this._gameOver = false;
-        
         this._score = 0;
 
         this.node.on(cc.Node.EventType.MOUSE_DOWN,function (event) {//枪声
@@ -78,7 +76,7 @@ cc.Class({
     },
 
     getNewchickenPosition: function(){
-        return cc.p(Math.random()*960-480,Math.random()*520-260);
+        return cc.p(Math.random()*960-480,Math.random()*500-250);
     },
 
     update: function(dt){

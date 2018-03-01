@@ -1,14 +1,14 @@
 {
   "ver": "1.0.0",
-  "uuid": "b4e0b3df-9ab0-4ea8-a302-9cd69cced37d",
+  "uuid": "2c8c4629-d345-4261-9d0e-53648f38e436",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
   "subMetas": {
     "gameModeSelectBackGround": {
       "ver": "1.0.3",
-      "uuid": "c5126e87-d47b-4183-b500-f7d69f0ae10e",
-      "rawTextureUuid": "b4e0b3df-9ab0-4ea8-a302-9cd69cced37d",
+      "uuid": "e6696b4d-0cda-44be-b772-30618a53ad49",
+      "rawTextureUuid": "2c8c4629-d345-4261-9d0e-53648f38e436",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
