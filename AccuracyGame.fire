@@ -81,16 +81,19 @@
       },
       {
         "__id__": 27
+      },
+      {
+        "__id__": 29
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 29
+        "__id__": 31
       },
       {
-        "__id__": 30
+        "__id__": 32
       }
     ],
     "_prefab": null,
@@ -241,7 +244,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 124.47,
+      "width": 126.72,
       "height": 40
     },
     "_rotationX": 0,
@@ -251,7 +254,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 261
+      "y": 280
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -273,8 +276,10 @@
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "a896ae07-8b53-4474-807e-5715b7831710"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "分数: 0",
     "_N$horizontalAlign": 1,
@@ -315,7 +320,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 226.72,
+      "width": 222.48,
       "height": 40
     },
     "_rotationX": 0,
@@ -325,7 +330,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": -322,
-      "y": 261
+      "y": 280
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -347,8 +352,10 @@
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "a896ae07-8b53-4474-807e-5715b7831710"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_N$string": "剩余恶鸡: 20",
     "_N$horizontalAlign": 1,
@@ -396,8 +403,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 40
+      "width": 50,
+      "height": 50
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -405,8 +412,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 411,
-      "y": 289
+      "x": 440,
+      "y": 280
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -448,8 +455,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 40
+      "width": 80,
+      "height": 80
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -483,7 +490,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "返回",
+    "_N$string": "",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -498,7 +505,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "f0048c10-f03e-4c97-b9d3-3506e1d58952"
+      "__uuid__": "8cf408b1-ca57-4bd2-bcee-ef5e3a91c9a3"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -541,10 +548,10 @@
     "duration": 0.1,
     "zoomScale": 1.2,
     "pressedSprite": {
-      "__uuid__": "e9ec654c-97a2-4787-9325-e6a10375219a"
+      "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
     },
     "hoverSprite": {
-      "__uuid__": "e9ec654c-97a2-4787-9325-e6a10375219a"
+      "__uuid__": "8cf408b1-ca57-4bd2-bcee-ef5e3a91c9a3"
     },
     "clickEvents": [
       {
@@ -568,7 +575,7 @@
       "a": 255
     },
     "_N$normalSprite": {
-      "__uuid__": "f0048c10-f03e-4c97-b9d3-3506e1d58952"
+      "__uuid__": "8cf408b1-ca57-4bd2-bcee-ef5e3a91c9a3"
     },
     "_N$disabledSprite": {
       "__uuid__": "29158224-f8dd-4661-a796-1ffab537140e"
@@ -687,8 +694,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 40
+      "width": 50,
+      "height": 50
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -696,8 +703,8 @@
     "_scaleY": 1,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": 411,
-      "y": 224
+      "x": 380,
+      "y": 280
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -774,7 +781,7 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
-    "_N$string": "重置",
+    "_N$string": "",
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
@@ -789,7 +796,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "f0048c10-f03e-4c97-b9d3-3506e1d58952"
+      "__uuid__": "526d4e2e-9e69-4fd8-ac5d-d1c8ee57b9d3"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -832,10 +839,10 @@
     "duration": 0.1,
     "zoomScale": 1.2,
     "pressedSprite": {
-      "__uuid__": "e9ec654c-97a2-4787-9325-e6a10375219a"
+      "__uuid__": "de221b31-a583-41b4-afdf-8d3286208778"
     },
     "hoverSprite": {
-      "__uuid__": "e9ec654c-97a2-4787-9325-e6a10375219a"
+      "__uuid__": "526d4e2e-9e69-4fd8-ac5d-d1c8ee57b9d3"
     },
     "clickEvents": [
       {
@@ -859,7 +866,7 @@
       "a": 255
     },
     "_N$normalSprite": {
-      "__uuid__": "f0048c10-f03e-4c97-b9d3-3506e1d58952"
+      "__uuid__": "526d4e2e-9e69-4fd8-ac5d-d1c8ee57b9d3"
     },
     "_N$disabledSprite": {
       "__uuid__": "29158224-f8dd-4661-a796-1ffab537140e"
@@ -1112,6 +1119,82 @@
     "_atlas": null
   },
   {
+    "__type__": "cc.Node",
+    "_name": "fisrtShow",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 2
+    },
+    "_children": [],
+    "_tag": -1,
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 30
+      }
+    ],
+    "_prefab": null,
+    "_id": "24phYhMM1JwLMp0/MJoDkR",
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_cascadeOpacityEnabled": true,
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 241.72,
+      "height": 40
+    },
+    "_rotationX": 0,
+    "_rotationY": 0,
+    "_scaleX": 1,
+    "_scaleY": 1,
+    "_position": {
+      "__type__": "cc.Vec2",
+      "x": -643,
+      "y": -323
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_localZOrder": 0,
+    "_globalZOrder": 0,
+    "_opacityModifyRGB": false,
+    "groupIndex": 0
+  },
+  {
+    "__type__": "cc.Label",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 29
+    },
+    "_enabled": true,
+    "_useOriginalSize": false,
+    "_actualFontSize": 40,
+    "_fontSize": 40,
+    "_lineHeight": 40,
+    "_enableWrapText": true,
+    "_N$file": {
+      "__uuid__": "a896ae07-8b53-4474-807e-5715b7831710"
+    },
+    "_isSystemFontUsed": false,
+    "_spacingX": 0,
+    "_N$string": "嗨，我在这！",
+    "_N$horizontalAlign": 1,
+    "_N$verticalAlign": 1,
+    "_N$fontFamily": "Arial",
+    "_N$overflow": 0
+  },
+  {
     "__type__": "cc.Canvas",
     "_name": "",
     "_objFlags": 0,
@@ -1140,6 +1223,9 @@
     },
     "remainderLable": {
       "__id__": 8
+    },
+    "firstShowLabel": {
+      "__id__": 30
     },
     "crosschair": {
       "__id__": 24

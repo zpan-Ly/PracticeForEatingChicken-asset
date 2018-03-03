@@ -50,6 +50,10 @@ cc.Class({
         this._score = 0;
 
         this.node.on(cc.Node.EventType.MOUSE_DOWN,function (event) {//枪声
+            if(event._y > 575 && event._x > 835){
+                return;
+            }
+
             cc.audioEngine.play(this.ak47, false, this.slider.progress*0.5);
             this.blood.node.opacity = 100; //打中空地飘红血
             this._score--;//打中空地降一分  

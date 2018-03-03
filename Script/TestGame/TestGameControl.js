@@ -4,11 +4,14 @@ cc.Class({
     properties: {
         chicken: cc.Sprite,
         label: cc.Label,
+        music: cc.AudioClip,
     },
 
     onLoad () {
         this.resultTime = 0;
         this.relaxTime = 100;
+
+        this._music = cc.audioEngine.play(this.music, true, 0.5);
 
         this.scheduleOnce(function(){
             this.resultTime = 0;
@@ -16,6 +19,9 @@ cc.Class({
         },2);
 
         this.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
+            if(event._y > 575 && event._x > 895){
+                return;
+            }
             this.label.getComponent(cc.Label).string = "骗子，点早了！";
         },this);
 

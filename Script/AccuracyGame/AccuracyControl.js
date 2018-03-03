@@ -10,6 +10,10 @@ cc.Class({
             default: null,
             type: cc.Label,
         },
+        firstShowLabel: {
+            default: null,
+            type: cc.Label,
+        },
         crosschair: {
             default: null,
             type: cc.Sprite,
@@ -47,8 +51,13 @@ cc.Class({
         this._gameOver = false;
         this._score = 0;
         this._maintainTime = 100;//这个数字代表一只鸡所能维持的剩余时间，初始设为较大
+        this._isFirstShow = true;
 
         this.node.on(cc.Node.EventType.MOUSE_DOWN,function (event) {//枪声
+            if(event._y > 575 && event._x > 835){
+                return;
+            }
+
             cc.audioEngine.play(this.ak47, false, 0.5);
             this.blood.node.opacity = 100; //打中空地飘红血
             this._score--;//打中空地降一分  
@@ -118,7 +127,13 @@ cc.Class({
                 this._time = 0;
                 this.chicken.node.opacity = 255;
                 this._maintainTime = this.maintainTime;
-                this.chicken.node.setPosition(this.getNewchickenPosition());
+                var loc = this.getNewchickenPosition()
+                this.chicken.node.setPosition(loc);
+
+                if(this._isFirstShow == true){
+                    this._isFirstShow = false;
+                    this.firstShow(loc);
+                }
             }
         }
 
@@ -153,6 +168,39 @@ cc.Class({
             }
 
             this.remainderLable.node.setPosition(cc.p(0,0));
+        }
+    },
+
+    firstShow(loc){
+        this.scheduleOnce(function(){
+            this.firstShowLabel.node.x = -1000;
+            this.firstShowLabel.node.y = -1000;//移除屏幕
+        },0.6);
+        var x = loc.x;
+        var y = loc.y;
+        if(x>=0 && y>=0){
+            this.firstShowLabel.node.x = loc.x-30;
+            this.firstShowLabel.node.y = loc.y-30;
+            this.firstShowLabel.node.rotation = 45;
+            return;
+        }
+        if(x>=0 && y<0){
+            this.firstShowLabel.node.x = loc.x-30;
+            this.firstShowLabel.node.y = loc.y+30;
+            this.firstShowLabel.node.rotation = -45;
+            return;
+        }
+        if(x<0 && y>=0){
+            this.firstShowLabel.node.x = loc.x+30;
+            this.firstShowLabel.node.y = loc.y-30;
+            this.firstShowLabel.node.rotation = -45;
+            return;
+        }
+        if(x<0 && y<0){
+            this.firstShowLabel.node.x = loc.x+30;
+            this.firstShowLabel.node.y = loc.y+30;
+            this.firstShowLabel.node.rotation = 45;
+            return;
         }
     }
 });
