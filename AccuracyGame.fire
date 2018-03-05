@@ -551,7 +551,7 @@
       "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
     },
     "hoverSprite": {
-      "__uuid__": "8cf408b1-ca57-4bd2-bcee-ef5e3a91c9a3"
+      "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
     },
     "clickEvents": [
       {
@@ -652,7 +652,9 @@
     "node": {
       "__id__": 15
     },
-    "_enabled": true
+    "_enabled": true,
+    "jungleWorld": null,
+    "musicWorld": null
   },
   {
     "__type__": "cc.Node",
@@ -842,7 +844,7 @@
       "__uuid__": "de221b31-a583-41b4-afdf-8d3286208778"
     },
     "hoverSprite": {
-      "__uuid__": "526d4e2e-9e69-4fd8-ac5d-d1c8ee57b9d3"
+      "__uuid__": "de221b31-a583-41b4-afdf-8d3286208778"
     },
     "clickEvents": [
       {
@@ -1061,8 +1063,8 @@
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
-      "g": 255,
-      "b": 255,
+      "g": 253,
+      "b": 253,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -1073,8 +1075,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 15,
-      "height": 15
+      "width": 25,
+      "height": 25
     },
     "_rotationX": 0,
     "_rotationY": 0,

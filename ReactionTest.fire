@@ -457,7 +457,7 @@
       "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
     },
     "hoverSprite": {
-      "__uuid__": "8cf408b1-ca57-4bd2-bcee-ef5e3a91c9a3"
+      "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
     },
     "clickEvents": [
       {
@@ -558,7 +558,9 @@
     "node": {
       "__id__": 13
     },
-    "_enabled": true
+    "_enabled": true,
+    "jungleWorld": null,
+    "musicWorld": null
   },
   {
     "__type__": "cc.Canvas",
@@ -592,6 +594,9 @@
     },
     "music": {
       "__uuid__": "065987d5-5d95-4189-8c2c-71d1cf833f47"
+    },
+    "button": {
+      "__id__": 11
     }
   }
 ]

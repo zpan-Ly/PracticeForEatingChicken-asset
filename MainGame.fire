@@ -18,12 +18,6 @@
       },
       {
         "__id__": 11
-      },
-      {
-        "__id__": 31
-      },
-      {
-        "__id__": 34
       }
     ],
     "_tag": -1,
@@ -83,17 +77,17 @@
         "__id__": 23
       },
       {
-        "__id__": 35
+        "__id__": 30
       }
     ],
     "_tag": -1,
     "_active": true,
     "_components": [
       {
-        "__id__": 37
+        "__id__": 32
       },
       {
-        "__id__": 38
+        "__id__": 33
       }
     ],
     "_prefab": null,
@@ -401,7 +395,7 @@
       "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
     },
     "hoverSprite": {
-      "__uuid__": "8cf408b1-ca57-4bd2-bcee-ef5e3a91c9a3"
+      "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
     },
     "clickEvents": [
       {
@@ -502,7 +496,9 @@
     "node": {
       "__id__": 11
     },
-    "_enabled": true
+    "_enabled": true,
+    "jungleWorld": null,
+    "musicWorld": null
   },
   {
     "__type__": "cc.Node",
@@ -694,7 +690,7 @@
       "__uuid__": "de221b31-a583-41b4-afdf-8d3286208778"
     },
     "hoverSprite": {
-      "__uuid__": "526d4e2e-9e69-4fd8-ac5d-d1c8ee57b9d3"
+      "__uuid__": "de221b31-a583-41b4-afdf-8d3286208778"
     },
     "clickEvents": [
       {
@@ -1175,157 +1171,11 @@
     },
     "_enabled": true,
     "direction": 0,
-    "slideEvents": [
-      {
-        "__id__": 30
-      }
-    ],
+    "slideEvents": [],
     "_N$handle": {
       "__id__": 28
     },
     "_N$progress": 0.5
-  },
-  {
-    "__type__": "cc.ClickEvent",
-    "target": {
-      "__id__": 31
-    },
-    "component": "MusicControl",
-    "handler": "onSliderMove",
-    "customEventData": ""
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "MusicControl",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 1
-    },
-    "_children": [],
-    "_tag": -1,
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 32
-      }
-    ],
-    "_prefab": null,
-    "_id": "0eWOnzxKRHBqcxSumcDzvE",
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
-    },
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_opacityModifyRGB": false,
-    "groupIndex": 0
-  },
-  {
-    "__type__": "701d20pRBJLHYSNi6IxYcHE",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 31
-    },
-    "_enabled": true,
-    "audio": {
-      "__id__": 33
-    }
-  },
-  {
-    "__type__": "cc.AudioSource",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 34
-    },
-    "_enabled": true,
-    "_clip": {
-      "__uuid__": "065987d5-5d95-4189-8c2c-71d1cf833f47"
-    },
-    "_volume": 0.5,
-    "_mute": false,
-    "_loop": true,
-    "playOnLoad": true,
-    "preload": true
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "Music",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 1
-    },
-    "_children": [],
-    "_tag": -1,
-    "_active": true,
-    "_components": [
-      {
-        "__id__": 33
-      }
-    ],
-    "_prefab": null,
-    "_id": "3a3eqGHX1MxpxOPyPMJh00",
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_cascadeOpacityEnabled": true,
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
-    },
-    "_rotationX": 0,
-    "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
-    "_position": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_localZOrder": 0,
-    "_globalZOrder": 0,
-    "_opacityModifyRGB": false,
-    "groupIndex": 0
   },
   {
     "__type__": "cc.Node",
@@ -1339,7 +1189,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 36
+        "__id__": 31
       }
     ],
     "_prefab": null,
@@ -1384,7 +1234,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 35
+      "__id__": 30
     },
     "_enabled": true,
     "_spriteFrame": {
@@ -1445,13 +1295,13 @@
       "__uuid__": "e8f19600-9f33-4b2c-b490-3e8aa27412dc"
     },
     "blood": {
-      "__id__": 36
+      "__id__": 31
     },
     "slider": {
       "__id__": 29
     },
-    "MusicControl": {
-      "__id__": 31
+    "music": {
+      "__uuid__": "065987d5-5d95-4189-8c2c-71d1cf833f47"
     },
     "interval": 0.8
   }

@@ -4,6 +4,8 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        jungleWorld: cc.AudioSource,
+        musicWorld: cc.AudioSource
     },
 
     netModeSelect_single: function(){
@@ -19,11 +21,14 @@ cc.Class({
     },
 //******************************************************************** 
     gameModeSelect_return: function(){
+        cc.audioEngine.stopAll();
+
         cc.director.loadScene("NetModeSelect.fire")
     },
 
     gameModeSelect_professional: function(){
         cc.audioEngine.stopAll();
+
         cc.director.loadScene("MainGame.fire");
         Global.gameMode = 0;
     },
@@ -59,6 +64,7 @@ cc.Class({
     },
 
     mainGame_reset: function(){
+        cc.audioEngine.stopAll();
         cc.director.loadScene("MainGame.fire");
     },
 //***********************************************************************
@@ -69,11 +75,13 @@ cc.Class({
     },
     
     accuracyGame_reset: function(){
+        cc.audioEngine.stopAll();
         cc.director.loadScene("AccuracyGame.fire");
     },
 //***********************************************************************
     testGame_return: function(){
         cc.audioEngine.stopAll();
+
         cc.director.loadScene("GameModeSelect.fire");
         cc._canvas.style.cursor = 'auto';//恢复指针样式
     },

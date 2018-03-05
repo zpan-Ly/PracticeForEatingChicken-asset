@@ -5,13 +5,13 @@ cc.Class({
         chicken: cc.Sprite,
         label: cc.Label,
         music: cc.AudioClip,
+        button: cc.Button,
     },
 
     onLoad () {
         this.resultTime = 0;
         this.relaxTime = 100;
-
-        this._music = cc.audioEngine.play(this.music, true, 0.5);
+        this._musicId = cc.audioEngine.play(this.music,true,1);
 
         this.scheduleOnce(function(){
             this.resultTime = 0;
@@ -38,6 +38,10 @@ cc.Class({
 
             this.relaxTime = Math.random()*2+1;
         },this)
+
+        this.button.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
+            cc.audioEngine.stop(this._musicId);
+        },this);
     },
 
     update (dt) {

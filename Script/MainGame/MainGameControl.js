@@ -30,10 +30,7 @@ cc.Class({
             default: null,
             type: cc.Slider,
         },
-        MusicControl: {
-            default: null,  
-            type: cc.Node,
-        },
+        music: cc.AudioClip,
         interval: 1,
     },
 
@@ -59,6 +56,8 @@ cc.Class({
             this._score--;//打中空地降一分  
             this.updateScore();     
         },this);
+
+        cc.audioEngine.play(this.music,true,0.8);
     },
 
     changePointer: function(){
@@ -132,7 +131,7 @@ cc.Class({
             this.failedLable.getComponent(cc.Label).string = "不说了，收下我的膝盖！";
         }
 
-        this.MusicControl.getComponent("MusicControl").changeVolume(0);//关掉音乐
+        cc.audioEngine.stopAll();//关掉音乐
     },
 
     changeSlider: function(dist,tarx,tary){
@@ -143,7 +142,7 @@ cc.Class({
         var volume = (1.90476190e-04)*dist*dist + (-2.90476190e-02)*dist + 1;
 
         this.slider.progress = volume;
-        this.MusicControl.getComponent("MusicControl").changeVolume(volume);
+        //this.MusicControl.getComponent("MusicControl").changeVolume(volume);
 
         this.changeBlood(volume,tarx,tary);
     },
