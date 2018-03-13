@@ -41,7 +41,7 @@ cc.Class({
 
     gameModeSelect_training2: function(){
         cc.audioEngine.stopAll();
-        cc.director.loadScene("ReactionTest.fire");
+        cc.director.loadScene("QuickSwap.fire");
         Global.gameMode = 2;
     },
 
@@ -77,6 +77,17 @@ cc.Class({
     accuracyGame_reset: function(){
         cc.audioEngine.stopAll();
         cc.director.loadScene("AccuracyGame.fire");
+    },
+//***********************************************************************
+    quickSwapGame_return: function(){
+        cc.audioEngine.stopAll();
+        cc.director.loadScene("GameModeSelect.fire");
+        cc._canvas.style.cursor = 'auto';//恢复指针样式
+    },
+
+    quickSwapGame_reset: function(){
+        cc.audioEngine.stopAll();
+        cc.director.loadScene("QuickSwap.fire");
     },
 //***********************************************************************
     testGame_return: function(){

@@ -26,12 +26,8 @@ cc.Class({
             default: null,
             type: cc.Sprite,
         },
-        slider: {
-            default: null,
-            type: cc.Slider,
-        },
         music: cc.AudioClip,
-        interval: 1,
+        interval: 2,
     },
 
     onLoad() {
@@ -51,7 +47,7 @@ cc.Class({
                 return;
             }
 
-            cc.audioEngine.play(this.ak47, false, this.slider.progress*0.5);
+            cc.audioEngine.play(this.ak47, false, 0.8);
             this.blood.node.opacity = 100; //打中空地飘红血
             this._score--;//打中空地降一分  
             this.updateScore();     
@@ -74,7 +70,6 @@ cc.Class({
         this.node.addChild(newChicken);
         newChicken.setPosition(this.getNewchickenPosition());
         newChicken.setLocalZOrder(9);
-
         return newChicken;
     },
 
@@ -83,14 +78,12 @@ cc.Class({
     },
 
     update: function(dt){
-        this.interval -= dt*0.008*(-0.01*this._score+1);
-
         if(typeof this._gameOver == "boolean" && this._gameOver==false){
             this._time += dt;
-            if(this._time>this.interval){//每隔一段时间产生一只鸡
+            if(this._time>this.interval){//每隔一段时间产生两只鸡
                 this._time = 0;
-                this._chicken[this._chickenNum] = this.spawnChicken();
-                this._chickenNum++;
+                this._chicken[this._chickenNum++] = this.spawnChicken();
+                this._chicken[this._chickenNum++] = this.spawnChicken();
             }
         }else{
             if(typeof this._gameOver == "boolean"){
@@ -132,17 +125,6 @@ cc.Class({
         }
 
         cc.audioEngine.stopAll();//关掉音乐
-    },
-
-    changeSlider: function(dist,tarx,tary){
-        //volume=1/dist,当dist<1时设为1
-        if(dist>100) 
-            dist = 100;
-        
-        var volume = (1.90476190e-04)*dist*dist + (-2.90476190e-02)*dist + 1;
-
-        this.slider.progress = volume;
-        //this.MusicControl.getComponent("MusicControl").changeVolume(volume);
     },
 
     changeBlood: function(tarx,tary){

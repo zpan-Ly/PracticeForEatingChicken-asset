@@ -2,11 +2,14 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        decrese: 3,
+        decrese: 0,
     },
 
     onLoad() {
-        this.decrese = 5;
+        if(this.parentControl.slider)
+            this.decrese = 5;
+        else 
+            this.decrese = 8;
 
         this.addTouchEvent();
         this._isBiger = true;
@@ -26,7 +29,10 @@ cc.Class({
 
             event.stopPropagation()
             
-            cc.audioEngine.play(this.parentControl.ak47, false, this.parentControl.slider.progress*0.5);
+            if(this.parentControl.slider)
+                cc.audioEngine.play(this.parentControl.ak47, false, this.parentControl.slider.progress*0.5);
+            else
+                cc.audioEngine.play(this.parentControl.ak47, false, 0.8);
 
             this.node.active = false;
 
@@ -61,6 +67,8 @@ cc.Class({
     changeMusic: function(event){
         var dist = Math.sqrt( (event._x - this.node.x - 480)*(event._x - this.node.x - 480) + 
             (event._y - this.node.y - 320)*(event._y - this.node.y - 320) );
-        this.parentControl.changeSlider(dist,this.node.x,this.node.y);
+        if(this.parentControl.changeSlider)
+            this.parentControl.changeSlider(dist,this.node.x,this.node.y);
+            this.parentControl.changeBlood(this.node.x,this.node.y);
     }
 });

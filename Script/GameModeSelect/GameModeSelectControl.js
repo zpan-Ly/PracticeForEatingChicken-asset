@@ -16,18 +16,22 @@ cc.Class({
 
         //预加载场景
         cc.director.preloadScene('MainGame', function () {
-            cc.log('Next scene preloaded');
+            cc.log('MainGame scene preloaded');
         });
         cc.director.preloadScene('AccuracyGame', function () {
-            cc.log('Next scene preloaded');
+            cc.log('AccuracyGame scene preloaded');
+        });
+        cc.director.preloadScene('QuickSwap', function () {
+            cc.log('QuickSwap scene preloaded');
         });
         cc.director.preloadScene('ReactionTest', function () {
-            cc.log('Next scene preloaded');
+            cc.log('ReactionTest scene preloaded');
         });
 
         //播放背景音乐
         cc.audioEngine.play(this.music,true,0.8);
 
+        //隐藏设置界面
         this.setNode.active = false;
     },
 
