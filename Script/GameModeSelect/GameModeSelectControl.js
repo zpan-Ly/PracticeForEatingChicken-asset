@@ -29,7 +29,8 @@ cc.Class({
         });
 
         //播放背景音乐
-        cc.audioEngine.play(this.music,true,0.8);
+        var id = cc.audioEngine.play(this.music,true,Global.musicVolume);
+        Global.musicId = id;
 
         //隐藏设置界面
         this.setNode.active = false;

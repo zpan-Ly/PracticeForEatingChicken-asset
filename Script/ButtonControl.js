@@ -54,7 +54,7 @@ cc.Class({
     gameModeSelect_adventure: function(){
         cc.audioEngine.stopAll();
         cc.director.loadScene("MainGame.fire");
-        Global.gameMode = 5;
+        Global.gameMode = 4;
     },
 //***********************************************************************
     mainGame_return: function(){

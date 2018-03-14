@@ -1,3 +1,5 @@
+var Global = require('GlobalData');   
+
 cc.Class({
     extends: cc.Component,
 
@@ -58,7 +60,7 @@ cc.Class({
                 return;
             }
 
-            cc.audioEngine.play(this.ak47, false, 0.5);
+            cc.audioEngine.play(this.ak47, false, Global.effectVolume);
             this.blood.node.opacity = 100; //打中空地飘红血
             this._score--;//打中空地降一分  
             this.updateScore();     
@@ -74,7 +76,7 @@ cc.Class({
 
             event.stopPropagation()
             
-            cc.audioEngine.play(this.ak47, false, 0.5);
+            cc.audioEngine.play(this.ak47, false, Global.effectVolume);
 
             this.chicken.node.opacity = 0;
 

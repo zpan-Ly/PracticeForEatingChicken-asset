@@ -1,3 +1,5 @@
+var Global = require('GlobalData');   
+
 cc.Class({
     extends: cc.Component,
 
@@ -11,7 +13,7 @@ cc.Class({
     onLoad () {
         this.resultTime = 0;
         this.relaxTime = 100;
-        this._musicId = cc.audioEngine.play(this.music,true,1);
+        this._musicId = cc.audioEngine.play(this.music,true,Global.musicVolume);
 
         this.scheduleOnce(function(){
             this.resultTime = 0;

@@ -1,3 +1,5 @@
+var Global = require('GlobalData');   
+
 cc.Class({
     extends: cc.Component,
 
@@ -51,13 +53,13 @@ cc.Class({
                 return;
             }
 
-            cc.audioEngine.play(this.ak47, false, this.slider.progress*0.5);
+            cc.audioEngine.play(this.ak47, false, Global.effectVolume);
             this.blood.node.opacity = 100; //打中空地飘红血
             this._score--;//打中空地降一分  
             this.updateScore();     
         },this);
 
-        cc.audioEngine.play(this.music,true,0.8);
+        cc.audioEngine.play(this.music,true,Global.musicVolume);
     },
 
     changePointer: function(){
@@ -79,7 +81,7 @@ cc.Class({
     },
 
     getNewchickenPosition: function(){
-        return cc.p(Math.random()*960-480,Math.random()*500-250);
+        return cc.p(Math.random()*960-480,Math.random()*460-230);
     },
 
     update: function(dt){

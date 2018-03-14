@@ -1,3 +1,5 @@
+var Global = require('GlobalData');   
+
 cc.Class({
     extends: cc.Component,
 
@@ -6,10 +8,11 @@ cc.Class({
     },
 
     onLoad() {
-        if(this.parentControl.slider)
+        var gameModeMainGame = 0;
+        if(Global.gameMode == gameModeMainGame)
             this.decrese = 5;
         else 
-            this.decrese = 8;
+            this.decrese = 10;
 
         this.addTouchEvent();
         this._isBiger = true;
@@ -32,7 +35,7 @@ cc.Class({
             if(this.parentControl.slider)
                 cc.audioEngine.play(this.parentControl.ak47, false, this.parentControl.slider.progress*0.5);
             else
-                cc.audioEngine.play(this.parentControl.ak47, false, 0.8);
+                cc.audioEngine.play(this.parentControl.ak47, false, Global.effectVolume);
 
             this.node.active = false;
 
@@ -55,7 +58,9 @@ cc.Class({
             if(this.node.scale > 0){
                 this.node.scale -= (this.decrese/255)*0.1;
             }else{
-                this.parentControl._gameOver = true;
+                var gameModeOfQuickSwap = 2;
+                if(Global.gameMode != gameModeOfQuickSwap)//快切模式一只鸡没点钟后不会gameOver
+                    this.parentControl._gameOver = true;
             }
         }
     },
