@@ -12,6 +12,10 @@ cc.Class({
             default: null,
             type: cc.Sprite,
         },
+        locChangeButton: {
+            default: null,
+            type: cc.Sprite,    
+        },
         chickenPrefab: {
             default: null,
             type: cc.Prefab
@@ -34,6 +38,8 @@ cc.Class({
         },
         music: cc.AudioClip,
         interval: 1,
+        crosschairSpeed: 300,
+        crosschairRadius: 100
     },
 
     onLoad() {
@@ -42,19 +48,12 @@ cc.Class({
         this._chickenNum = 0;
         this._gameOver = false;
         this._score = 0;
-
-        this.node.on(cc.Node.EventType.MOUSE_DOWN,function (event) {//枪声
-            if(event._y > 575 && event._x > 835){
-                return;
-            }
-
-            cc.audioEngine.play(this.ak47, false, Global.effectVolume);
-            this.blood.node.opacity = 100; //打中空地飘红血
-            this._score--;//打中空地降一分  
-            this.updateScore();     
-        },this);
+        this._crosschairDir = 0;//0代表准星没有移动
+        this._locChangeButtonPreviousLocation = this.locChangeButton.node.getPosition();//触摸点固定位置
 
         cc.audioEngine.play(this.music,true,Global.musicVolume);
+
+        this.setTouchEvent();
     },
 
     spawnChicken: function() {
@@ -131,7 +130,6 @@ cc.Class({
         var volume = (1.90476190e-04)*dist*dist + (-2.90476190e-02)*dist + 1;
 
         this.slider.progress = volume;
-        //this.MusicControl.getComponent("MusicControl").changeVolume(volume);
     },
 
     changeBlood: function(tarx,tary){
@@ -143,5 +141,50 @@ cc.Class({
         this.scheduleOnce(function() {
             newBlood.removeFromParent();
         },2);
+    },
+
+    setTouchEvent: function(){
+        /*this.node.on(cc.Node.EventType.MOUSE_DOWN,function (event) {//枪声
+            cc.audioEngine.play(this.ak47, false, Global.effectVolume);
+            this.blood.node.opacity = 100; //打中空地飘红血
+            this._score--;//打中空地降一分  
+            this.updateScore();     
+        },this);*/
+        var sprite = this.locChangeButton;
+        var startPos = cc.p(0,0);
+
+        sprite.node.on(cc.Node.EventType.TOUCH_START, function(e){  
+            startPos = cc.p(e.touch._point._x,e.touch._point._y);
+            return true;  
+        }.bind(this), this);  
+
+        sprite.node.on(cc.Node.EventType.TOUCH_MOVE, function(e){  
+            var move_x = e.touch._point.x - e.touch._prevPoint.x;  
+            var move_y = e.touch._point.y - e.touch._prevPoint.y;  
+            var tempx =  sprite.node.x + move_x;  
+            var tempy = sprite.node.y + move_y;  
+
+            var dist = Math.sqrt((tempx - this._locChangeButtonPreviousLocation.x)*
+            (tempx - this._locChangeButtonPreviousLocation.x)+
+            (tempy - this._locChangeButtonPreviousLocation.y)*
+            (tempy - this._locChangeButtonPreviousLocation.y));
+            if(dist > this.crosschairRadius){//触摸点的活动范围是有限的
+                var scaleOfDist = this.crosschairRadius / dist;
+                sprite.node.setPosition(
+                    this._locChangeButtonPreviousLocation.x+(tempx-this._locChangeButtonPreviousLocation.x)*scaleOfDist,
+                    this._locChangeButtonPreviousLocation.y+(tempy-this._locChangeButtonPreviousLocation.y)*scaleOfDist
+                );
+            }else{
+                sprite.node.setPosition(tempx,tempy);
+            }
+        }.bind(this), this ); 
+
+        sprite.node.on(cc.Node.EventType.TOUCH_END, function(e){  
+            sprite.node.setPosition(this._locChangeButtonPreviousLocation);
+        }.bind(this), this );  
+
+        sprite.node.on(cc.Node.EventType.TOUCH_CANCEL, function(e){  
+            sprite.node.setPosition(this._locChangeButtonPreviousLocation);
+        }.bind(this), this );  
     }
 });
