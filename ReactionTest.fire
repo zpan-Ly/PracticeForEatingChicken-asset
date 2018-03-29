@@ -48,7 +48,7 @@
     "_globalZOrder": 0,
     "_opacityModifyRGB": false,
     "groupIndex": 0,
-    "autoReleaseAssets": null
+    "autoReleaseAssets": false
   },
   {
     "__type__": "cc.Node",
@@ -72,10 +72,10 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 15
+        "__id__": 16
       },
       {
-        "__id__": 16
+        "__id__": 17
       }
     ],
     "_prefab": null,
@@ -287,6 +287,9 @@
       },
       {
         "__id__": 11
+      },
+      {
+        "__id__": 15
       }
     ],
     "_prefab": null,
@@ -453,12 +456,6 @@
     },
     "duration": 0.1,
     "zoomScale": 1.2,
-    "pressedSprite": {
-      "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
-    },
-    "hoverSprite": {
-      "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
-    },
     "clickEvents": [
       {
         "__id__": 12
@@ -482,6 +479,18 @@
     },
     "_N$normalSprite": {
       "__uuid__": "8cf408b1-ca57-4bd2-bcee-ef5e3a91c9a3"
+    },
+    "_N$pressedSprite": {
+      "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
+    },
+    "pressedSprite": {
+      "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
+    },
+    "_N$hoverSprite": {
+      "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
+    },
+    "hoverSprite": {
+      "__uuid__": "17f0c36f-34d0-458f-bddb-6cb06edbcef0"
     },
     "_N$disabledSprite": {
       "__uuid__": "29158224-f8dd-4661-a796-1ffab537140e"
@@ -561,6 +570,32 @@
     "_enabled": true,
     "jungleWorld": null,
     "musicWorld": null
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 7
+    },
+    "_enabled": true,
+    "isAlignOnce": true,
+    "_target": null,
+    "_alignFlags": 33,
+    "_left": 0,
+    "_right": 15,
+    "_top": 15,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 0,
+    "_originalHeight": 0
   },
   {
     "__type__": "cc.Canvas",

@@ -37,11 +37,6 @@ cc.Class({
     },
 
     onLoad() {
-        if(cc.sys.isBrowser){
-            cc._canvas.style.cursor = 'none';//浏览器运行下隐藏鼠标，windows下不能使用这个方法。
-        }
-        this.changePointer();//修改指针样式
-
         this._time = -5;//6秒后游戏开始
         this._chicken = new Array();
         this._chickenNum = 0;
@@ -60,14 +55,6 @@ cc.Class({
         },this);
 
         cc.audioEngine.play(this.music,true,Global.musicVolume);
-    },
-
-    changePointer: function(){
-        this.node.on(cc.Node.EventType.MOUSE_MOVE, function (event) {
-            this.crosschair.node.x = event.getLocationX() - 480;
-            this.crosschair.node.y = event.getLocationY() - 320;
-        },this);
-        this.crosschair.node.setLocalZOrder(10);
     },
 
     spawnChicken: function() {
