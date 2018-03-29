@@ -1379,8 +1379,8 @@
     "_scaleY": 2,
     "_position": {
       "__type__": "cc.Vec2",
-      "x": -339,
-      "y": -203
+      "x": -330,
+      "y": -170
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1426,10 +1426,10 @@
     "isAlignOnce": true,
     "_target": null,
     "_alignFlags": 12,
-    "_left": 91,
+    "_left": 100,
     "_right": 0,
     "_top": 0,
-    "_bottom": 67,
+    "_bottom": 100,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -1493,7 +1493,7 @@
       "__uuid__": "065987d5-5d95-4189-8c2c-71d1cf833f47"
     },
     "interval": 0.8,
-    "crosschairSpeed": 300,
-    "crosschairRadius": 100
+    "crosschairSpeed": 2000,
+    "crosschairRadius": 70
   }
 ]
