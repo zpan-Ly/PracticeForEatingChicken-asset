@@ -155,10 +155,17 @@ cc.Class({
         },2);
     },
     setPosFromWin: function(pos){//定高下的策略
-        var scal = 960 / cc.winSize.width;
-        pos.x *= scal;
-        pos.x -= 480;
-        pos.y -= 320;
+        var scalx = cc.winSize.width/960;
+        var scaly = cc.winSize.height/640;
+        pos.x *= 1/scalx;
+        pos.y *= 1/scaly;
+        return pos;
+    },
+    setPosFromDesign: function(pos){
+        var scalx = cc.winSize.width/960;
+        var scaly = cc.winSize.height/640;
+        pos.x *= scalx;
+        pos.y *= scaly;
         return pos;
     },
 
@@ -179,12 +186,17 @@ cc.Class({
         }.bind(this), this);  
 
         sprite.node.on(cc.Node.EventType.TOUCH_MOVE, function(e){  
-            var move_x = e.touch._point.x - e.touch._prevPoint.x;  
-            var move_y = e.touch._point.y - e.touch._prevPoint.y;  
+            cc.log(e);
+            //var move_x = e.touch._point.x - e.touch._prevPoint.x;  
+            //var move_y = e.touch._point.y - e.touch._prevPoint.y;  
 
-            var scal = 960 / cc.winSize.width;
-            var tempx =  sprite.node.x + move_x*scal;  
-            var tempy = sprite.node.y + move_y*scal;  
+            //var scal = 960 / cc.winSize.width;
+            //var tempx =  sprite.node.x + move_x*scal;  
+            //var tempy = sprite.node.y + move_y*scal;  
+            
+            // var tPos = this.setPosFromDesign(e.getLocation());
+            var tempx = e.getLocation().x-cc.winSize.width/2;
+            var tempy = e.getLocation().y-cc.winSize.height/2;
 
             var dist = Math.sqrt((tempx - startPos.x)*
             (tempx - startPos.x)+
