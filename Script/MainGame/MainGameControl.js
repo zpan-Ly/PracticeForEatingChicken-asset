@@ -43,7 +43,7 @@ cc.Class({
     },
 
     onLoad() {
-        this._time = -5;//6秒后游戏开始
+        this._time = -2;//6秒后游戏开始
         this._chicken = new Array();
         this._chickenNum = 0;
         this._gameOver = false;
@@ -54,7 +54,7 @@ cc.Class({
         this._movingSca = 0;
         var radius = 50;
         var widget = 100;
-        this._locChangeButtonPreviousLocation = cc.p(widget-cc.winSize.width/2+radius,widget-320+radius);//触摸点固定位置
+        //this._locChangeButtonPreviousLocation = cc.p(widget-cc.winSize.width/2+radius,widget-320+radius);//触摸点固定位置
 
         this.crosschair.node.setPosition(cc.p(0,0));
 
@@ -63,9 +63,10 @@ cc.Class({
         this.setTouchEvent();
     },
 
-    spawnChicken: function() {
+    spawnChicken: function(id) {
         var newChicken = cc.instantiate(this.chickenPrefab);
         newChicken.getComponent('ChickenControl').parentControl = this;//为鸡设置父亲指针
+        newChicken.getComponent('ChickenControl').idInParentArray = id;
         this.node.addChild(newChicken);
         newChicken.setPosition(this.getNewchickenPosition());
         newChicken.setLocalZOrder(9);
@@ -84,7 +85,7 @@ cc.Class({
             this._time += dt;
             if(this._time>this.interval){//每隔一段时间产生一只鸡
                 this._time = 0;
-                this._chicken[this._chickenNum] = this.spawnChicken();
+                this._chicken[this._chickenNum] = this.spawnChicken(this._chickenNum);
                 this._chickenNum++;
             }
         }else{
@@ -99,6 +100,11 @@ cc.Class({
     
         this.crosschair.node.x += this.crosschairSpeed*Math.cos(this._crosschairDir)*dt*this._movingSca*this._crosschairDir2;
         this.crosschair.node.y += this.crosschairSpeed*Math.sin(this._crosschairDir)*dt*this._movingSca;
+
+        if(this.crosschair.node.x<-cc.winSize.width/2) this.crosschair.node.x = -cc.winSize.width/2;
+        if(this.crosschair.node.x>cc.winSize.width/2) this.crosschair.node.x = cc.winSize.width/2;
+        if(this.crosschair.node.y<-cc.winSize.height/2) this.crosschair.node.y = -cc.winSize.height/2;
+        if(this.crosschair.node.y>cc.winSize.height/2) this.crosschair.node.x = cc.winSize.height/2;
     },
 
     updateScore: function(){
@@ -176,46 +182,38 @@ cc.Class({
             this._score--;//打中空地降一分  
             this.updateScore();     
         },this);*/
-        var sprite = this.locChangeButton;
+        var sprite = this;
         var startPos = cc.p(0,0);
 
         sprite.node.on(cc.Node.EventType.TOUCH_START, function(e){  
-            startPos = this._locChangeButtonPreviousLocation;
+            startPos = e.getLocation();
             this._isMovingCrossChair = true;
             return true;  
         }.bind(this), this);  
 
         sprite.node.on(cc.Node.EventType.TOUCH_MOVE, function(e){  
-            cc.log(e);
-            //var move_x = e.touch._point.x - e.touch._prevPoint.x;  
-            //var move_y = e.touch._point.y - e.touch._prevPoint.y;  
-
-            //var scal = 960 / cc.winSize.width;
-            //var tempx =  sprite.node.x + move_x*scal;  
-            //var tempy = sprite.node.y + move_y*scal;  
-            
-            // var tPos = this.setPosFromDesign(e.getLocation());
             var tempx = e.getLocation().x-cc.winSize.width/2;
             var tempy = e.getLocation().y-cc.winSize.height/2;
 
-            var dist = Math.sqrt((tempx - startPos.x)*
-            (tempx - startPos.x)+
-            (tempy - startPos.y)*
-            (tempy - startPos.y));
-            if(dist > this.crosschairRadius){//触摸点的活动范围是有限的
-                var scaleOfDist = this.crosschairRadius / dist;
-                sprite.node.setPosition(
-                    startPos.x+(tempx-startPos.x)*scaleOfDist,
-                    startPos.y+(tempy-startPos.y)*scaleOfDist
-                );
-            }else{
-                sprite.node.setPosition(tempx,tempy);
-            }
-            this._movingSca = dist/100;
-            if(this._movingSca>1) this._movingSca=1;
+            var dist2 = this.getDist(e.getLocation(),e.getPreviousLocation());
 
-            tempx = (tempx-startPos.x);
-            tempy = (tempy-startPos.y);
+            // var dist = Math.sqrt((tempx - startPos.x)*
+            // (tempx - startPos.x)+
+            // (tempy - startPos.y)*
+            // (tempy - startPos.y));
+            // if(dist > this.crosschairRadius){//触摸点的活动范围是有限的
+            //     var scaleOfDist = this.crosschairRadius / dist;
+            //     sprite.node.setPosition(
+            //         startPos.x+(tempx-startPos.x)*scaleOfDist,
+            //         startPos.y+(tempy-startPos.y)*scaleOfDist
+            //     );
+            // }else{
+            //    sprite.node.setPosition(tempx,tempy);
+            // }
+            this._movingSca = dist2/7*Global.fireSpeedVolume;
+
+            tempx = (e.getLocation().x-e.getPreviousLocation().x);
+            tempy = (e.getLocation().y-e.getPreviousLocation().y);
 
             if(-0.00001<tempx && tempx <0.00001) tempx = 0.00001;
             if(-0.00001<tempy && tempy <0.00001) tempy = 0.00001;
@@ -230,15 +228,39 @@ cc.Class({
         }.bind(this), this ); 
 
         sprite.node.on(cc.Node.EventType.TOUCH_END, function(e){  
-            sprite.node.setPosition(this._locChangeButtonPreviousLocation);
             this._isMovingCrossChair = false;
             this._movingSca = 0;
         }.bind(this), this );  
 
         sprite.node.on(cc.Node.EventType.TOUCH_CANCEL, function(e){  
-            sprite.node.setPosition(this._locChangeButtonPreviousLocation);
             this._isMovingCrossChair = false;
             this._movingSca = 0;
         }.bind(this), this );  
+    },
+    getDist: function(pos1,pos2){
+        return Math.sqrt((pos1.x-pos2.x)*(pos1.x-pos2.x)+
+                        (pos1.y-pos2.y)*(pos1.y-pos2.y));
+    },
+    fireButtonPress: function(){  
+        cc.audioEngine.play(this.ak47, false, Global.effectVolume);
+        var shouldBlood = true;
+
+        var pos = cc.p(this.crosschair.node.x,this.crosschair.node.y);
+        for(var i = 0 ; i < this._chickenNum ;i++){
+            if(!this._chicken[i]) continue;
+
+            var dist = this.getDist(pos,cc.p(this._chicken[i].x,this._chicken[i].y));
+            var radius = 500;//鸡的半径
+            if(dist>radius*this._chicken[i].scale) continue;//判断是否点中该鸡
+
+            this._chicken[i].emit('fire',{});
+            shouldBlood = false;
+        }
+
+        if(!shouldBlood) return;
+
+        this.blood.node.opacity = 100; //打中空地飘红血
+        --this._score;//打中空地降一分  
+        this.updateScore();   
     }
 });

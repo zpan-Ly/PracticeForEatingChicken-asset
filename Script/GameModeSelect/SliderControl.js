@@ -5,12 +5,14 @@ cc.Class({
 
     properties: {
         slider_m: cc.Slider,
-        slider_e: cc.Slider
+        slider_e: cc.Slider,
+        slider_f: cc.Slider
     },
 
     onLoad(){
         this.slider_m.progress = Global.musicVolume;
         this.slider_e.progress = Global.effectVolume;
+        this.slider_f.progress = Global.fireSpeedVolume;
     },
 
     musicEvent (sender, eventType) {
@@ -20,5 +22,9 @@ cc.Class({
 
     effectEvent (sender, eventType) {
         Global.effectVolume =  sender.progress;
-    }
+    },
+
+    speedEvent (sender, eventType) {
+        Global.fireSpeedVolume =  sender.progress;
+    },
 });

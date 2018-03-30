@@ -13,15 +13,15 @@ cc.Class({
             this.decrese = 5;
         else 
             this.decrese = 10;
+        this.decrese *= 0.6;
 
         this.addTouchEvent();
         this._isBiger = true;
         this.node.scale = 0;
         this._paused = false;
     },
-
     addTouchEvent: function(){
-        this.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
+        this.node.on('fire', function (event) {
             if(this._paused) return;
 
             this.parentControl._score++;
@@ -30,14 +30,14 @@ cc.Class({
 
             this.changeMusic(event);
 
-            event.stopPropagation()
-            
             if(this.parentControl.slider)
                 cc.audioEngine.play(this.parentControl.ak47, false, this.parentControl.slider.progress*0.5);
             else
                 cc.audioEngine.play(this.parentControl.ak47, false, Global.effectVolume);
 
             this.node.active = false;
+
+            this.parentControl._chicken[this.idInParentArray] = null;
 
             this.node.removeFromParent();
         },this);
