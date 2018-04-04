@@ -139,15 +139,15 @@ cc.Class({
 
         var rank = new Array(10,20,40,50);
         if(this._score<rank[0]){
-            this.failedLable.getComponent(cc.Label).string = "你输了，你这个菜鸡！";
+            this.failedLable.getComponent(cc.Label).string = this._score+"分， 输了，你这个菜鸡！";
         }else if(this._score<rank[1]){
-            this.failedLable.getComponent(cc.Label).string = "你输了，继续努力！";
+            this.failedLable.getComponent(cc.Label).string = this._score+"分， 输了，继续努力！";
         }else if(this._score<rank[2]){
-            this.failedLable.getComponent(cc.Label).string = "虽败犹荣";
+            this.failedLable.getComponent(cc.Label).string = this._score+"分， 虽败犹荣";
         }else if(this._score<rank[3]){
-            this.failedLable.getComponent(cc.Label).string = "接近大神";
+            this.failedLable.getComponent(cc.Label).string = this._score+"分， 接近大神";
         }else{
-            this.failedLable.getComponent(cc.Label).string = "不说了，收下我的膝盖！";
+            this.failedLable.getComponent(cc.Label).string = this._score+"分， 不说了，收下我的膝盖！";
         }
 
         cc.audioEngine.stopAll();//关掉音乐
