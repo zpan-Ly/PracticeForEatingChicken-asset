@@ -39,7 +39,6 @@ cc.Class({
         music: cc.AudioClip,
         interval: 1,
         crosschairSpeed: 20,
-        crosschairRadius: 100
     },
 
     onLoad() {
@@ -48,19 +47,20 @@ cc.Class({
         this._chickenNum = 0;
         this._gameOver = false;
         this._score = 0;
+        cc.audioEngine.play(this.music,true,Global.musicVolume);
+        
+        this.onLoadTouchRelated();
+        this.setTouchEvent();
+    },
+
+    onLoadTouchRelated: function(){
         this._crosschairDir = 0;
         this._crosschairDir2 = 0;
         this._isMovingCrossChair = false;
+        this._lastMovingScaChangeTime = 0;
         this._movingSca = 0;
-        var radius = 50;
-        var widget = 100;
-        //this._locChangeButtonPreviousLocation = cc.p(widget-cc.winSize.width/2+radius,widget-320+radius);//触摸点固定位置
-
+        this._lastMovingSca = 0;
         this.crosschair.node.setPosition(cc.p(0,0));
-
-        cc.audioEngine.play(this.music,true,Global.musicVolume);
-
-        this.setTouchEvent();
     },
 
     spawnChicken: function(id) {
@@ -75,7 +75,8 @@ cc.Class({
     },
 
     getNewchickenPosition: function(){
-        return cc.p(Math.random()*960-480,Math.random()*460-230);
+        return cc.p((Math.random()*0.5+0.25)*cc.winSize.width-cc.winSize.width/2,
+            (Math.random()*0.5+0.25)*cc.winSize.height-cc.winSize.height/2);
     },
 
     update: function(dt){
@@ -93,8 +94,16 @@ cc.Class({
                 this.failed();
             }
         }
+        if (this.blood.node.opacity > 1) this.blood.node.opacity -= 1;//血量图透明度降低       
+        
+        this.updateAbuoutCrossChair(dt);
+    },
 
-        if (this.blood.node.opacity > 1) this.blood.node.opacity -= 1;//血量图透明度降低
+    updateAbuoutCrossChair: function(dt){
+        if(this._lastMovingScaChangeTime>0.03){
+            this._movingSca = 0;
+            return;
+        }
 
         if(!this._isMovingCrossChair) return;
     
@@ -105,6 +114,10 @@ cc.Class({
         if(this.crosschair.node.x>cc.winSize.width/2) this.crosschair.node.x = cc.winSize.width/2;
         if(this.crosschair.node.y<-cc.winSize.height/2) this.crosschair.node.y = -cc.winSize.height/2;
         if(this.crosschair.node.y>cc.winSize.height/2) this.crosschair.node.x = cc.winSize.height/2;
+        
+        this._lastMovingSca = this._movingSca;
+
+        this._lastMovingScaChangeTime += dt;
     },
 
     updateScore: function(){
@@ -140,16 +153,6 @@ cc.Class({
         cc.audioEngine.stopAll();//关掉音乐
     },
 
-    changeSlider: function(dist,tarx,tary){
-        //volume=1/dist,当dist<1时设为1
-        if(dist>100) 
-            dist = 100;
-        
-        var volume = (1.90476190e-04)*dist*dist + (-2.90476190e-02)*dist + 1;
-
-        this.slider.progress = volume;
-    },
-
     changeBlood: function(tarx,tary){
         var newBlood = cc.instantiate(this.bloodPrefab);
         this.node.addChild(newBlood);
@@ -160,28 +163,8 @@ cc.Class({
             newBlood.removeFromParent();
         },2);
     },
-    setPosFromWin: function(pos){//定高下的策略
-        var scalx = cc.winSize.width/960;
-        var scaly = cc.winSize.height/640;
-        pos.x *= 1/scalx;
-        pos.y *= 1/scaly;
-        return pos;
-    },
-    setPosFromDesign: function(pos){
-        var scalx = cc.winSize.width/960;
-        var scaly = cc.winSize.height/640;
-        pos.x *= scalx;
-        pos.y *= scaly;
-        return pos;
-    },
 
     setTouchEvent: function(){
-        /*this.node.on(cc.Node.EventType.MOUSE_DOWN,function (event) {//枪声
-            cc.audioEngine.play(this.ak47, false, Global.effectVolume);
-            this.blood.node.opacity = 100; //打中空地飘红血
-            this._score--;//打中空地降一分  
-            this.updateScore();     
-        },this);*/
         var sprite = this;
         var startPos = cc.p(0,0);
 
@@ -197,20 +180,8 @@ cc.Class({
 
             var dist2 = this.getDist(e.getLocation(),e.getPreviousLocation());
 
-            // var dist = Math.sqrt((tempx - startPos.x)*
-            // (tempx - startPos.x)+
-            // (tempy - startPos.y)*
-            // (tempy - startPos.y));
-            // if(dist > this.crosschairRadius){//触摸点的活动范围是有限的
-            //     var scaleOfDist = this.crosschairRadius / dist;
-            //     sprite.node.setPosition(
-            //         startPos.x+(tempx-startPos.x)*scaleOfDist,
-            //         startPos.y+(tempy-startPos.y)*scaleOfDist
-            //     );
-            // }else{
-            //    sprite.node.setPosition(tempx,tempy);
-            // }
-            this._movingSca = dist2/7*Global.fireSpeedVolume;
+            this._movingSca = dist2/5*Global.fireSpeedVolume;
+            this._lastMovingScaChangeTime = 0;
 
             tempx = (e.getLocation().x-e.getPreviousLocation().x);
             tempy = (e.getLocation().y-e.getPreviousLocation().y);

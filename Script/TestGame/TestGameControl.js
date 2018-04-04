@@ -20,30 +20,27 @@ cc.Class({
             this.chicken.node.opacity = 255;
         },2);
 
-        this.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
-            if(event._y > 575 && event._x > 895){
+        this.node.on(cc.Node.EventType.TOUCH_START, function (event) {
+            if(this.chicken.node.opacity<=5){
+                this.label.getComponent(cc.Label).string = "骗子，点早了！";
                 return;
             }
-            this.label.getComponent(cc.Label).string = "骗子，点早了！";
+
+            var eventLocation = cc.p(event.getLocation().x-cc.winSize.width/2,
+                                    event.getLocation().y-cc.winSize.height/2);
+            var dist = this.getDist(eventLocation,cc.p(this.chicken.node.x,this.chicken.node.y));
+            if(dist<859/2/2){
+                this.chicken.node.emit("fire",{});
+            }
         },this);
 
-        this.chicken.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
-            if(this.chicken.node.opacity <= 5){
-                return;
-            }
-
-            event.stopPropagation();
-
+        this.chicken.node.on("fire", function (event) {
             this.chicken.node.opacity = 0;
 
             this.label.getComponent(cc.Label).string = this.resultTime.toFixed(2)*1000+ " ms";
 
             this.relaxTime = Math.random()*2+1;
         },this)
-
-        this.button.node.on(cc.Node.EventType.MOUSE_DOWN, function (event) {
-            cc.audioEngine.stop(this._musicId);
-        },this);
     },
 
     update (dt) {
@@ -55,5 +52,9 @@ cc.Class({
             this.resultTime = 0;
             this.relaxTime = 100;
         }
+    },
+    getDist: function(pos1,pos2){
+        return Math.sqrt((pos1.x-pos2.x)*(pos1.x-pos2.x)+
+                        (pos1.y-pos2.y)*(pos1.y-pos2.y));
     },
 });

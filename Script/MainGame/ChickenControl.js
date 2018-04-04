@@ -9,11 +9,10 @@ cc.Class({
 
     onLoad() {
         var gameModeMainGame = 0;
-        if(Global.gameMode == gameModeMainGame)
+        if(Global.gameMode == gameModeMainGame)//使用此速度的模式为：职业吃鸡模式
             this.decrese = 5;
         else 
-            this.decrese = 10;
-        this.decrese *= 0.6;
+            this.decrese = 7;//使用此速度的模式为：快切模式，冒险模式
 
         this.addTouchEvent();
         this._isBiger = true;
@@ -28,8 +27,8 @@ cc.Class({
 
             this.parentControl.updateScore();
 
-            this.changeMusic(event);
-
+            this.parentControl.changeBlood(this.node.x,this.node.y);
+            
             if(this.parentControl.slider)
                 cc.audioEngine.play(this.parentControl.ak47, false, this.parentControl.slider.progress*0.5);
             else
@@ -68,12 +67,4 @@ cc.Class({
     pauseAll: function(){
         this._paused = true;
     },
-
-    changeMusic: function(event){
-        var dist = Math.sqrt( (event._x - this.node.x - 480)*(event._x - this.node.x - 480) + 
-            (event._y - this.node.y - 320)*(event._y - this.node.y - 320) );
-        if(this.parentControl.changeSlider)
-            this.parentControl.changeSlider(dist,this.node.x,this.node.y);
-            this.parentControl.changeBlood(this.node.x,this.node.y);
-    }
 });

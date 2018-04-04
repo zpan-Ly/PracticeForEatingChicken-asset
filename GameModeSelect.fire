@@ -1614,7 +1614,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 43
@@ -1672,7 +1672,7 @@
     },
     "_children": [],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 42
@@ -2252,7 +2252,7 @@
     ],
     "_prefab": null,
     "_id": "42XyldzgJKCL6UdXdmsU16",
-    "_opacity": 255,
+    "_opacity": 0,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
