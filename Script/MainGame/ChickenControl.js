@@ -29,10 +29,7 @@ cc.Class({
 
             this.parentControl.changeBlood(this.node.x,this.node.y);
             
-            if(this.parentControl.slider)
-                cc.audioEngine.play(this.parentControl.ak47, false, this.parentControl.slider.progress*0.5);
-            else
-                cc.audioEngine.play(this.parentControl.ak47, false, Global.effectVolume);
+            cc.audioEngine.play(this.parentControl.shotChickenMp3, false, Global.effectVolume);
 
             this.node.active = false;
 

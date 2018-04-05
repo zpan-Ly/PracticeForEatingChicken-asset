@@ -1636,8 +1636,17 @@
     "bloodPrefab": {
       "__uuid__": "09b4bf5b-655a-4eb4-b4ae-06e14bd1189f"
     },
-    "ak47": {
+    "ak47Mp3": {
       "__uuid__": "e8f19600-9f33-4b2c-b490-3e8aa27412dc"
+    },
+    "gameOverMp3": {
+      "__uuid__": "af12bd7e-62ca-458b-9291-19b25f756aef"
+    },
+    "shotSelfMp3": {
+      "__uuid__": "65bb2dcf-5148-455f-aab4-cff479daa687"
+    },
+    "shotChickenMp3": {
+      "__uuid__": "89b25851-93cd-4b8b-a58d-674d3c83b620"
     },
     "blood": {
       "__id__": 33

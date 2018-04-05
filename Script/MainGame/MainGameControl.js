@@ -24,7 +24,19 @@ cc.Class({
             default: null,
             type: cc.Prefab
         },
-        ak47: {
+        ak47Mp3: {
+            default: null,
+            url: cc.AudioClip,
+        },
+        gameOverMp3: {
+            default: null,
+            url: cc.AudioClip,
+        },
+        shotSelfMp3: {
+            default: null,
+            url: cc.AudioClip,
+        },
+        shotChickenMp3: {
             default: null,
             url: cc.AudioClip,
         },
@@ -47,6 +59,9 @@ cc.Class({
         this._chickenNum = 0;
         this._gameOver = false;
         this._score = 0;
+        this._haveFailed = false;
+        this._nowCanscreech = true;
+
         cc.audioEngine.play(this.music,true,Global.musicVolume);
         
         this.onLoadTouchRelated();
@@ -88,6 +103,7 @@ cc.Class({
                 this._time = 0;
                 this._chicken[this._chickenNum] = this.spawnChicken(this._chickenNum);
                 this._chickenNum++;
+                this._nowCanscreech = true;//每只鸡之间打中自己只叫一次
             }
         }else{
             if(typeof this._gameOver == "boolean"){
@@ -129,6 +145,10 @@ cc.Class({
     },
 
     failed: function(){
+        if(this._haveFailed) return;
+
+        this._haveFailed = true;
+
         this.failedLable.node.setLocalZOrder(100);//避免结果被挡住
 
         for(i = 0;i<this._chickenNum;i++){//停止所有鸡
@@ -150,7 +170,10 @@ cc.Class({
             this.failedLable.getComponent(cc.Label).string = this._score+"分， 不说了，收下我的膝盖！";
         }
 
-        cc.audioEngine.stopAll();//关掉音乐
+        cc.audioEngine.play(this.gameOverMp3,false,Global.effectVolume*0.4);
+        this.scheduleOnce(function() {
+            cc.audioEngine.stopAll();//关掉音乐
+        },2);
     },
 
     changeBlood: function(tarx,tary){
@@ -213,7 +236,7 @@ cc.Class({
                         (pos1.y-pos2.y)*(pos1.y-pos2.y));
     },
     fireButtonPress: function(){  
-        cc.audioEngine.play(this.ak47, false, Global.effectVolume);
+        cc.audioEngine.play(this.ak47Mp3, false, Global.effectVolume*0.2);
         var shouldBlood = true;
 
         var pos = cc.p(this.crosschair.node.x,this.crosschair.node.y);
@@ -230,6 +253,12 @@ cc.Class({
 
         if(!shouldBlood) return;
 
+        this.scheduleOnce(function() {
+            if(this._nowCanscreech){
+                cc.audioEngine.play(this.shotSelfMp3,false,Global.effectVolume);
+                this._nowCanscreech = false;
+            }
+        },0.2);
         this.blood.node.opacity = 100; //打中空地飘红血
         --this._score;//打中空地降一分  
         this.updateScore();   
