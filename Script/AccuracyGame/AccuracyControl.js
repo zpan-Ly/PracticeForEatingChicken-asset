@@ -4,11 +4,15 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        failedLable: {
+        failedLabel: {
             default: null,
             type: cc.Label,
         },
-        remainderLable: {
+        commentLabel: {
+            default: null,
+            type: cc.Label,
+        },
+        remainderLabel: {
             default: null,
             type: cc.Label,
         },
@@ -35,6 +39,10 @@ cc.Class({
         blood: {
             default: null,
             type: cc.Sprite,
+        },
+        gameOverLayer: {
+            default: null,
+            type: cc.Node
         },
         interval: 2,
         maintainTime: 1,
@@ -81,7 +89,7 @@ cc.Class({
     },
 
     updateScore: function(){
-        this.failedLable.getComponent(cc.Label).string = "分数: " + this._score;
+        this.failedLabel.getComponent(cc.Label).string = "分数: " + this._score;
     },
 
     update: function(dt){  
@@ -94,7 +102,7 @@ cc.Class({
             this._time += dt;
             if(this._time>this.interval){//每隔一段时间产生一只鸡
                 this.chickenSum--;
-                this.remainderLable.getComponent(cc.Label).string = "剩余恶鸡: "+this.chickenSum;
+                this.remainderLabel.getComponent(cc.Label).string = "剩余恶鸡: "+this.chickenSum;
                 this._time = 0;
                 this.chicken.node.opacity = 255;
                 this._maintainTime = this.maintainTime;
@@ -143,25 +151,26 @@ cc.Class({
     },
 
     isFinalChicken: function(){
-        if(this.chickenSum==0){
-             this._gameOver = true;
+        if(this.chickenSum<=0){
+            this._gameOver = true;
 
-            this.remainderLable.node.setLocalZOrder(100);//避免结果被挡住
+            var action = cc.moveTo(1,0,0);
+            this.gameOverLayer.runAction(action.easing(cc.easeElasticOut(5.0)));
+            this.gameOverLayer.setLocalZOrder(101);
 
             var rank = new Array(-15,-5,8,15);
+            var comment = new Array("笨蛋","挂科","良","李大钊","陈独秀")
             if(this._score<rank[0]){
-                this.remainderLable.getComponent(cc.Label).string = "你输了，你这个菜鸡！\n不要轻易开枪";
+                this.commentLabel.getComponent(cc.Label).string = comment[0];
             }else if(this._score<rank[1]){
-                this.remainderLable.getComponent(cc.Label).string = "你输了，继续努力！\n一枪未中的后果是很严重的";
+                this.commentLabel.getComponent(cc.Label).string = comment[1];
             }else if(this._score<rank[2]){
-                this.remainderLable.getComponent(cc.Label).string = "虽败犹荣\n迅捷！准确！";
+                this.commentLabel.getComponent(cc.Label).string = comment[2];
             }else if(this._score<rank[3]){
-                this.remainderLable.getComponent(cc.Label).string = "接近大神中";
+                this.commentLabel.getComponent(cc.Label).string = comment[3];
             }else{
-                this.remainderLable.getComponent(cc.Label).string = "请收下我的膝盖！";
+                this.commentLabel.getComponent(cc.Label).string = comment[4];
             }
-
-            this.remainderLable.node.setPosition(cc.p(0,0));
         }
     },
 

@@ -146,7 +146,7 @@ cc.Class({
         cc.audioEngine.stopAll();//关掉音乐
     },
 
-    changeBlood: function(tarx,tary){
+    newChickenBlood: function(tarx,tary){
         var newBlood = cc.instantiate(this.bloodPrefab);
         this.node.addChild(newBlood);
         newBlood.setPosition(cc.p(tarx,tary));

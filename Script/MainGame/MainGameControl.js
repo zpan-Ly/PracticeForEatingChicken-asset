@@ -4,7 +4,11 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        failedLable: {
+        failedLabel: {
+            default: null,
+            type: cc.Label,
+        },
+        hp: {
             default: null,
             type: cc.Label,
         },
@@ -44,28 +48,38 @@ cc.Class({
             default: null,
             type: cc.Sprite,
         },
-        slider: {
+        gameOverLayer: {
             default: null,
-            type: cc.Slider,
+            type: cc.Node
         },
-        music: cc.AudioClip,
+        missOneChickenPartice: {
+            default: null,
+            type: cc.ParticleSystem
+        },
+        backgroundMusic: cc.AudioClip,
         interval: 1,
         crosschairSpeed: 20,
+        healthNum: 5,//漏掉healthNum只鸡才算死亡
+        beginGameTime: 3,//进入场景后出现第一只鸡的时间
     },
 
     onLoad() {
-        this._time = -2;//6秒后游戏开始
-        this._chicken = new Array();
+        this._time = this.interval-this.beginGameTime;//产生鸡的控制器
+        this._chicken = new Array();//鸡列表
         this._chickenNum = 0;
-        this._gameOver = false;
         this._score = 0;
-        this._haveFailed = false;
-        this._nowCanscreech = true;
+        this._haveFailed = false;//记录游戏是否结束
+        this._nowCanscreech = true;//控制人尖叫次数的变量，避免点一次空地，人就叫一次
 
-        cc.audioEngine.play(this.music,true,Global.musicVolume);
-        
+        cc.audioEngine.play(this.backgroundMusic,true,Global.musicVolume);
+
+        this.initHP();
         this.onLoadTouchRelated();
         this.setTouchEvent();
+    },
+
+    initHP: function(){
+        this.hp.getComponent(cc.Label).string = "生命: " + this.healthNum;
     },
 
     onLoadTouchRelated: function(){
@@ -85,7 +99,6 @@ cc.Class({
         this.node.addChild(newChicken);
         newChicken.setPosition(this.getNewchickenPosition());
         newChicken.setLocalZOrder(9);
-
         return newChicken;
     },
 
@@ -95,9 +108,9 @@ cc.Class({
     },
 
     update: function(dt){
-        this.interval -= dt*0.008*(-0.01*this._score+1);
+        this.interval -= dt*0.001;
 
-        if(typeof this._gameOver == "boolean" && this._gameOver==false){
+        if(this.healthNum>0){
             this._time += dt;
             if(this._time>this.interval){//每隔一段时间产生一只鸡
                 this._time = 0;
@@ -105,11 +118,7 @@ cc.Class({
                 this._chickenNum++;
                 this._nowCanscreech = true;//每只鸡之间打中自己只叫一次
             }
-        }else{
-            if(typeof this._gameOver == "boolean"){
-                this.failed();
-            }
-        }
+        }else this.failed();
         if (this.blood.node.opacity > 1) this.blood.node.opacity -= 1;//血量图透明度降低       
         
         this.updateAbuoutCrossChair(dt);
@@ -138,18 +147,22 @@ cc.Class({
 
     updateScore: function(){
         if(this._score<40)
-            this.failedLable.getComponent(cc.Label).string = "分数: " + this._score;
+            this.failedLabel.getComponent(cc.Label).string = "分数: " + this._score;
         else{
-            this.failedLable.getComponent(cc.Label).string = "真牛逼，分数: " + this._score;
+            this.failedLabel.getComponent(cc.Label).string = "真牛逼，分数: " + this._score;
         }
     },
 
     failed: function(){
         if(this._haveFailed) return;
 
+        var action = cc.moveTo(1,0,0);
+        this.gameOverLayer.runAction(action.easing(cc.easeElasticOut(5.0)));
+        this.gameOverLayer.setLocalZOrder(101);
+
         this._haveFailed = true;
 
-        this.failedLable.node.setLocalZOrder(100);//避免结果被挡住
+        this.failedLabel.node.setLocalZOrder(100);//避免结果被挡住
 
         for(i = 0;i<this._chickenNum;i++){//停止所有鸡
             if(this._chicken[i]){
@@ -159,15 +172,15 @@ cc.Class({
 
         var rank = new Array(10,20,40,50);
         if(this._score<rank[0]){
-            this.failedLable.getComponent(cc.Label).string = this._score+"分， 输了，你这个菜鸡！";
+            this.failedLabel.getComponent(cc.Label).string = this._score+"分， 输了，你这个菜鸡！";
         }else if(this._score<rank[1]){
-            this.failedLable.getComponent(cc.Label).string = this._score+"分， 输了，继续努力！";
+            this.failedLabel.getComponent(cc.Label).string = this._score+"分， 输了，继续努力！";
         }else if(this._score<rank[2]){
-            this.failedLable.getComponent(cc.Label).string = this._score+"分， 虽败犹荣";
+            this.failedLabel.getComponent(cc.Label).string = this._score+"分， 虽败犹荣";
         }else if(this._score<rank[3]){
-            this.failedLable.getComponent(cc.Label).string = this._score+"分， 接近大神";
+            this.failedLabel.getComponent(cc.Label).string = this._score+"分， 接近大神";
         }else{
-            this.failedLable.getComponent(cc.Label).string = this._score+"分， 不说了，收下我的膝盖！";
+            this.failedLabel.getComponent(cc.Label).string = this._score+"分， 不说了，收下我的膝盖！";
         }
 
         cc.audioEngine.play(this.gameOverMp3,false,Global.effectVolume*0.4);
@@ -176,7 +189,7 @@ cc.Class({
         },2);
     },
 
-    changeBlood: function(tarx,tary){
+    newChickenBlood: function(tarx,tary){
         var newBlood = cc.instantiate(this.bloodPrefab);
         this.node.addChild(newBlood);
         newBlood.setPosition(cc.p(tarx,tary));
@@ -244,7 +257,7 @@ cc.Class({
             if(!this._chicken[i]) continue;
 
             var dist = this.getDist(pos,cc.p(this._chicken[i].x,this._chicken[i].y));
-            var radius = 500;//鸡的半径
+            var radius = this._chicken[i].width/2;//鸡的半径
             if(dist>radius*this._chicken[i].scale) continue;//判断是否点中该鸡
 
             this._chicken[i].emit('fire',{});

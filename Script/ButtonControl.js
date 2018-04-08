@@ -30,31 +30,31 @@ cc.Class({
         cc.audioEngine.stopAll();
 
         cc.director.loadScene("MainGame.fire");
-        Global.gameMode = 0;
+        Global.gameMode = Global.MAINMODE;
     },
 
     gameModeSelect_training1: function(){
         cc.audioEngine.stopAll();
         cc.director.loadScene("AccuracyGame.fire");
-        Global.gameMode = 1;
+        Global.gameMode = Global.ACCURACYMODE;
     },
 
     gameModeSelect_training2: function(){
         cc.audioEngine.stopAll();
         cc.director.loadScene("QuickSwap.fire");
-        Global.gameMode = 2;
+        Global.gameMode = Global.QUICKMODE;
     },
 
     gameModeSelect_reactionTest: function(){
         cc.audioEngine.stopAll();
         cc.director.loadScene("ReactionTest.fire");
-        Global.gameMode = 3;
+        Global.gameMode = Global.TESTMODE;
     },
 
     gameModeSelect_adventure: function(){
         cc.audioEngine.stopAll();
         cc.director.loadScene("MainGame.fire");
-        Global.gameMode = 4;
+        Global.gameMode = ADVENTUREMODE;
     },
 //***********************************************************************
     mainGame_return: function(){
