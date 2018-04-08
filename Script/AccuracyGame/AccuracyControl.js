@@ -44,19 +44,28 @@ cc.Class({
             default: null,
             type: cc.Node
         },
+        missOneChickenPartice: {
+            default: null,
+            type: cc.ParticleSystem
+        },
+        backgroundMusic: cc.AudioClip,
         interval: 2,
         maintainTime: 1,
         chickenSum: 20,
         crosschairSpeed: 20,
+        beginGameTime: 3
     },
 
     onLoad () {
-        this._time = -2;//3秒后游戏开始
+        this._time = 1-this.beginGameTime;//beginGameTime秒后游戏开始
         this._chicken = new Array();
         this._gameOver = false;
         this._score = 0;
         this._maintainTime = 100;//这个数字代表一只鸡所能维持的剩余时间，初始设为较大
         this._isFirstShow = true;
+
+        this._backgroundMusicID = cc.audioEngine.play(this.backgroundMusic,true,Global.musicVolume*0.5);
+
         this.onLoadTouchRelated();
         this.setTouchEvent();
         this.receiveEvent();//给鸡注册
@@ -143,6 +152,13 @@ cc.Class({
     },
 
     aChickenFailed: function(){
+        this.missOneChickenPartice.node.x = this.chicken.node.x;
+        this.missOneChickenPartice.node.y = this.chicken.node.y;
+        this.scheduleOnce(function() {
+            this.missOneChickenPartice.node.x = cc.winSize.width;
+            this.missOneChickenPartice.node.y = cc.winSize.height;//移出屏外
+        },0.5);
+
         this._score--;
         this.updateScore();
         this._maintainTime=100;
@@ -154,12 +170,14 @@ cc.Class({
         if(this.chickenSum<=0){
             this._gameOver = true;
 
+            cc.audioEngine.stop(this._backgroundMusicID);
+
             var action = cc.moveTo(1,0,0);
             this.gameOverLayer.runAction(action.easing(cc.easeElasticOut(5.0)));
             this.gameOverLayer.setLocalZOrder(101);
 
             var rank = new Array(-15,-5,8,15);
-            var comment = new Array("笨蛋","挂科","良","李大钊","陈独秀")
+            var comment = new Array("笨蛋","挂科","秀","李大钊","陈独秀")
             if(this._score<rank[0]){
                 this.commentLabel.getComponent(cc.Label).string = comment[0];
             }else if(this._score<rank[1]){

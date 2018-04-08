@@ -31,10 +31,11 @@ cc.Class({
         music: cc.AudioClip,
         interval: 2,
         crosschairSpeed: 20,
+        beginGameTime: 3
     },
 
     onLoad() {
-        this._time = -2;//6秒后游戏开始
+        this._time = 1-this.beginGameTime;//beginGameTime秒后游戏开始
         this._chicken = new Array();
         this._chickenNum = 0;
         this._gameOver = false;

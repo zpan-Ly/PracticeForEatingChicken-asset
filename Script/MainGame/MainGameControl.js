@@ -71,7 +71,7 @@ cc.Class({
         this._haveFailed = false;//记录游戏是否结束
         this._nowCanscreech = true;//控制人尖叫次数的变量，避免点一次空地，人就叫一次
 
-        cc.audioEngine.play(this.backgroundMusic,true,Global.musicVolume);
+        this._backgroundMusicID = cc.audioEngine.play(this.backgroundMusic,true,Global.musicVolume*0.5);
 
         this.initHP();
         this.onLoadTouchRelated();
@@ -183,6 +183,7 @@ cc.Class({
             this.failedLabel.getComponent(cc.Label).string = this._score+"分， 不说了，收下我的膝盖！";
         }
 
+        cc.audioEngine.stop(this._backgroundMusicID)
         cc.audioEngine.play(this.gameOverMp3,false,Global.effectVolume*0.4);
         this.scheduleOnce(function() {
             cc.audioEngine.stopAll();//关掉音乐
