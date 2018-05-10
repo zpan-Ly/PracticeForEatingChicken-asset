@@ -244,6 +244,24 @@ cc.Class({
             this._isMovingCrossChair = false;
             this._movingSca = 0;
         }.bind(this), this );  
+
+        // var self = this;
+        // sprite.node.on(cc.SystemEvent.EventType.KEY_DOWN, function (event){
+        //     switch(event.keyCode) {
+        //         case cc.KEY.space:
+        //         case cc.KEY.a:
+        //             self.fireButtonPress();
+        //             break;
+        //     }
+        // });
+        var self = this;
+        cc.eventManager.addListener({
+            event: cc.EventListener.KEYBOARD,
+            // 有按键按下时，判断是否是我们指定的方向控制键，并设置向对应方向速度
+            onKeyPressed: function(keyCode, event) {
+                self.fireButtonPress();
+            }}, 
+        self.node);
     },
     getDist: function(pos1,pos2){
         return Math.sqrt((pos1.x-pos2.x)*(pos1.x-pos2.x)+
